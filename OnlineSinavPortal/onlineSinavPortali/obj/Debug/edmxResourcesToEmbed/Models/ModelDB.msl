@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB01ModelStoreContainer" CdmEntityContainer="DB01Entities">
+    <EntitySetMapping Name="Cevap">
+      <EntityTypeMapping TypeName="DB01Model.Cevap">
+        <MappingFragment StoreEntitySet="Cevap">
+          <ScalarProperty Name="cevapId" ColumnName="cevapId" />
+          <ScalarProperty Name="cevapSecId" ColumnName="cevapSecId" />
+          <ScalarProperty Name="cevapOgrId" ColumnName="cevapOgrId" />
+          <ScalarProperty Name="cevapYanit" ColumnName="cevapYanit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategori">
+      <EntityTypeMapping TypeName="DB01Model.Kategori">
+        <MappingFragment StoreEntitySet="Kategori">
+          <ScalarProperty Name="katId" ColumnName="katId" />
+          <ScalarProperty Name="katAdi" ColumnName="katAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ogrenci">
+      <EntityTypeMapping TypeName="DB01Model.Ogrenci">
+        <MappingFragment StoreEntitySet="Ogrenci">
+          <ScalarProperty Name="ogrId" ColumnName="ogrId" />
+          <ScalarProperty Name="ogrAdi" ColumnName="ogrAdi" />
+          <ScalarProperty Name="ogrSoyadi" ColumnName="ogrSoyadi" />
+          <ScalarProperty Name="ogrTel" ColumnName="ogrTel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Secenek">
+      <EntityTypeMapping TypeName="DB01Model.Secenek">
+        <MappingFragment StoreEntitySet="Secenek">
+          <ScalarProperty Name="secId" ColumnName="secId" />
+          <ScalarProperty Name="secMetin" ColumnName="secMetin" />
+          <ScalarProperty Name="secSoruId" ColumnName="secSoruId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sinav">
+      <EntityTypeMapping TypeName="DB01Model.Sinav">
+        <MappingFragment StoreEntitySet="Sinav">
+          <ScalarProperty Name="sinavId" ColumnName="sinavId" />
+          <ScalarProperty Name="sinavAdi" ColumnName="sinavAdi" />
+          <ScalarProperty Name="sinavKatId" ColumnName="sinavKatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Soru">
+      <EntityTypeMapping TypeName="DB01Model.Soru">
+        <MappingFragment StoreEntitySet="Soru">
+          <ScalarProperty Name="soruId" ColumnName="soruId" />
+          <ScalarProperty Name="soruMetin" ColumnName="soruMetin" />
+          <ScalarProperty Name="soruSinavId" ColumnName="soruSinavId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

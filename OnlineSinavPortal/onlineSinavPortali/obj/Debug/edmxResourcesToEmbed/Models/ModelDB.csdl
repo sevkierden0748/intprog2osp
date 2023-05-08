@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cevap">
+    <Key>
+      <PropertyRef Name="cevapId" />
+    </Key>
+    <Property Name="cevapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cevapSecId" Type="Int32" Nullable="false" />
+    <Property Name="cevapOgrId" Type="Int32" Nullable="false" />
+    <Property Name="cevapYanit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Cevap_ToOgrenci" FromRole="Cevap" ToRole="Ogrenci" />
+    <NavigationProperty Name="Secenek" Relationship="Self.FK_Cevap_ToSecenek" FromRole="Cevap" ToRole="Secenek" />
+  </EntityType>
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="katId" />
+    </Key>
+    <Property Name="katId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="katAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Sinav" Relationship="Self.FK_Sinav_ToKategori" FromRole="Kategori" ToRole="Sinav" />
+  </EntityType>
+  <EntityType Name="Ogrenci">
+    <Key>
+      <PropertyRef Name="ogrId" />
+    </Key>
+    <Property Name="ogrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ogrAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ogrSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ogrTel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_ToOgrenci" FromRole="Ogrenci" ToRole="Cevap" />
+  </EntityType>
+  <EntityType Name="Secenek">
+    <Key>
+      <PropertyRef Name="secId" />
+    </Key>
+    <Property Name="secId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="secMetin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="secSoruId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cevap" Relationship="Self.FK_Cevap_ToSecenek" FromRole="Secenek" ToRole="Cevap" />
+    <NavigationProperty Name="Soru" Relationship="Self.FK_Secenek_ToSoru" FromRole="Secenek" ToRole="Soru" />
+  </EntityType>
+  <EntityType Name="Sinav">
+    <Key>
+      <PropertyRef Name="sinavId" />
+    </Key>
+    <Property Name="sinavId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sinavAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sinavKatId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kategori" Relationship="Self.FK_Sinav_ToKategori" FromRole="Sinav" ToRole="Kategori" />
+    <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_ToSinav" FromRole="Sinav" ToRole="Soru" />
+  </EntityType>
+  <EntityType Name="Soru">
+    <Key>
+      <PropertyRef Name="soruId" />
+    </Key>
+    <Property Name="soruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="soruMetin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="soruSinavId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Secenek" Relationship="Self.FK_Secenek_ToSoru" FromRole="Soru" ToRole="Secenek" />
+    <NavigationProperty Name="Sinav" Relationship="Self.FK_Soru_ToSinav" FromRole="Soru" ToRole="Sinav" />
+  </EntityType>
+  <Association Name="FK_Cevap_ToOgrenci">
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+    <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogrenci">
+        <PropertyRef Name="ogrId" />
+      </Principal>
+      <Dependent Role="Cevap">
+        <PropertyRef Name="cevapOgrId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cevap_ToSecenek">
+    <End Role="Secenek" Type="Self.Secenek" Multiplicity="1" />
+    <End Role="Cevap" Type="Self.Cevap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Secenek">
+        <PropertyRef Name="secId" />
+      </Principal>
+      <Dependent Role="Cevap">
+        <PropertyRef Name="cevapSecId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sinav_ToKategori">
+    <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+    <End Role="Sinav" Type="Self.Sinav" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="katId" />
+      </Principal>
+      <Dependent Role="Sinav">
+        <PropertyRef Name="sinavKatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Secenek_ToSoru">
+    <End Role="Soru" Type="Self.Soru" Multiplicity="1" />
+    <End Role="Secenek" Type="Self.Secenek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Soru">
+        <PropertyRef Name="soruId" />
+      </Principal>
+      <Dependent Role="Secenek">
+        <PropertyRef Name="secSoruId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Soru_ToSinav">
+    <End Role="Sinav" Type="Self.Sinav" Multiplicity="1" />
+    <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sinav">
+        <PropertyRef Name="sinavId" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="soruSinavId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB01Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cevap" EntityType="Self.Cevap" />
+    <EntitySet Name="Kategori" EntityType="Self.Kategori" />
+    <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" />
+    <EntitySet Name="Secenek" EntityType="Self.Secenek" />
+    <EntitySet Name="Sinav" EntityType="Self.Sinav" />
+    <EntitySet Name="Soru" EntityType="Self.Soru" />
+    <AssociationSet Name="FK_Cevap_ToOgrenci" Association="Self.FK_Cevap_ToOgrenci">
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+      <End Role="Cevap" EntitySet="Cevap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cevap_ToSecenek" Association="Self.FK_Cevap_ToSecenek">
+      <End Role="Secenek" EntitySet="Secenek" />
+      <End Role="Cevap" EntitySet="Cevap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sinav_ToKategori" Association="Self.FK_Sinav_ToKategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Sinav" EntitySet="Sinav" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Secenek_ToSoru" Association="Self.FK_Secenek_ToSoru">
+      <End Role="Soru" EntitySet="Soru" />
+      <End Role="Secenek" EntitySet="Secenek" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soru_ToSinav" Association="Self.FK_Soru_ToSinav">
+      <End Role="Sinav" EntitySet="Sinav" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
